@@ -1,0 +1,242 @@
+---
+title: "Assignment 6"
+subtitle: "STAT 201"
+author: "YOUR NAME"
+
+format:
+  html:
+    toc: true
+    embed-resources: true
+
+execute:
+  message: false
+  warning: false
+---
+
+# Instructions
+
+1. **Write your name** on the assignment
+
+2. Write your code in the *Code* cells of the **template provided** to write solutions for the assignment. **Do not open a new qmd**, and work from scratch. Ensure that the solution is written neatly enough to understand and grade.
+
+3. You may talk to a friend, discuss the questions and potential directions for solving them. However, you need to write your own solutions and code separately, and not as a group activity. Do not use AI to solve the problems.
+
+4. There are point deductions if your code is not clean and organized.
+
+5. Only print what is asked for. Highly inefficient code will be deducted for because it demonstrates lack of understanding.
+
+6. Render as an HTML and **submit BOTH the .qmd and HTML file**.
+
+The grader cannot grade what they cannot see! Failure to render your document after completing all questions will lead to deductions.
+
+## Question 1 (5 points)
+
+Link your RStudio to your GitHub account and create a **public** repository where you will commit and push this assignment to. We will be following the instructions in [https://happygitwithr.com/](https://happygitwithr.com/) The chapters listed below are referring to this book.
+
+
+Refer to the **instructions html** for this question! The instructions to setup GitHub are not included in this template to save space.
+
+
+To get full credit for this Question you must:
+  
+  - have a clickable link to your GitHub in the callout below
+  - have at least 5 **meaningful** commits pushed to GitHub. 
+  - have your GitHub up to date (ie: assignment is complete on GitHub).
+  - insert a screenshot of RStudio that shows the project and Git. See instructions html for what needs to be visible in the screenshot.
+
+::: {.callout-tip icon=false}
+
+## Github Repo Link
+
+[https://your-github-repo-url](https://your-github-repo-url)
+
+:::
+
+::: {.callout-tip icon=false}
+
+## Screenshot/image of RStudio
+
+![](filepath.png)
+
+:::
+
+
+## Question 2 (8 points)
+
+Consider the list of lists below containing basketball player information.
+
+```{r}
+player_info <- list(MJ = list(name = "Michael Jordan",
+                              postion = "shooting guard",
+                              games_played = 179,
+                              points = 5987,
+                              assists = 1022),
+                    LJ = list(name = "LeBron James",
+                              postion = "small forward",
+                              games_played = 287,
+                              points = 8162,
+                              assists = 2067),
+                    KB = list(name = "Kobe Bryant",
+                              postion = "shooting guard",
+                              games_played = 220,
+                              points = 5640,
+                              assists = 1040),
+                    KA = list(name = "Kareem Abdul-Jabbar",
+                              postion = "center",
+                              games_played = 237,
+                              points = 5762,
+                              assists = 767),
+                    SO = list(name = "Shaquille O'Neal",
+                              postion = "center",
+                              games_played = 216,
+                              points = 5250,
+                              assists = 582))
+```
+
+
+### Part a (1 point)
+
+Extract the value `8162` (LeBron James points) in 2 different ways:
+
+- using indexing 
+- using names
+
+```{r}
+
+```
+
+
+### Part b (3 points)
+
+Add a new named element to the end of each player's list called `height`. The heights in inches are as follows: MJ = 78; LJ = 81; KB = 78; KA = 86; SO = 85.
+
+Print the `player_info` list to prove you were successful.
+
+```{r}
+
+```
+
+
+### Part c (3 points)
+
+Create a new list that contains elements corresponding to each player's `points_per_game`. 
+
+- `points_per_game = points/games_played`
+
+Name each element with the respective player's initials.
+
+ie: The first element of the list will be 33.44693 and the name of this element will be MJ.
+
+Hint: initialize an empty list
+
+Note: this must still run correctly even if the values were to change or if another player were added to the list or if the player order changed.
+
+```{r}
+
+```
+
+
+### Part d (1 point)
+
+Use the list created in Part c and an appropriate apply function to round each value to two decimal places.
+
+Store the output as a vector and print the results.
+
+```{r}
+
+```
+
+
+## Question 3 (3 points)
+
+Consider the matrix `mat_rand` of random numbers below.
+
+```{r}
+rand_num <- c(sample(10:100, 10), sample(100:999, 10), sample(1000:2000, 10))
+
+mat_rand <- matrix(sample(rand_num, 30), ncol = 5)
+```
+
+Use an appropriate apply function to round values with 2 digits to the nearest tens, values with 3 digits to the nearest hundreds, and 4 digits to the nearest thousands.
+
+ie: 91 rounds to 90; 173 rounds to 200; 1450 rounds to 1000
+
+Hint: use `MARGIN = 1:2` to apply the function to each value instead of only a row/col.
+
+```{r}
+
+```
+
+
+## Question 4 (9 points)
+
+Run the below code chunk to load a data frame named `max_temps` into your Environment. May need to install `tidyverse` and `janitor` first in order for this to run. You can install packages by clicking on the **Packages** tab in the bottom right pane followed by clicking **Install**.
+
+```{r}
+library(tidyverse)
+
+temp_url <- 'https://raw.githubusercontent.com/biodash/biodash.github.io/master/assets/data/temperature/co_oh_va_max_temp.txt'
+temp_file <- 'state_max_temps.tsv'
+download.file(url = temp_url, destfile = temp_file)
+
+max_temps <- read_tsv("state_max_temps.tsv") |> 
+  janitor::clean_names()
+```
+
+### Part a (2 points)
+
+Calculate the average temperature for each month across the whole data frame (using the data for all three states together).
+
+```{r}
+
+```
+
+
+### Part b (2 points)
+
+Create three new data frames by slicing the data by state.
+
+- Slice the data frame to only include the state of Colorado (CO).
+- Slice the data frame to only include the state of Ohio (OH).
+- Slice the data frame to only include the state of Virginia (VA).
+
+No need to print any output here.
+
+```{r}
+
+```
+
+
+### Part c (5 points)
+
+Calculate the **median annual** temperature for your Colorado data set. 
+
+Use the `which.max()` and `which.min()` function to determine which year had the highest median temperature and which year had the lowest median temperature.
+
+Then print the sentence:
+
+"The maximum median annual temperature of {} occurred in {} and the minimum median annual temperature of {} occurred in {}."
+
+Example (this is NOT the answer just an example of what goes in the {}):
+
+"The maximum median annual temperature of 68.25 occurred in 2017 and the minimum median annual temperature of 57.15 occurred in 1907."
+
+Note: This code should still run successfully even if the numbers were to change.
+
+```{r}
+
+```
+
+
+## Question 5 (5 points)
+
+Write a recursive function that calculates the sum of the digits in a number. 
+
+Example: The number 312 would return 6 (3 + 1 + 2)
+
+Run your function with 935068.
+
+```{r}
+
+```
+
