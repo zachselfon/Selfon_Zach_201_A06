@@ -213,9 +213,9 @@ round_custom <- function(x) {
 }
 
 # Apply the custom rounding function to each element in the matrix
-mat_rounded <- matrix(apply(mat_rand, MARGIN = 1:2, FUN = round_custom), nrow = nrow(mat_rand), ncol = ncol(mat_rand))
+mat_rounded <- apply(mat_rand, MARGIN = 1:2, FUN = round_custom)
 
-# Print the original and rounded matrices for comparison
+
 print("Original Matrix:")
 print(mat_rand)
 print("Rounded Matrix:")
@@ -247,9 +247,8 @@ max_temps <- read_tsv("state_max_temps.tsv") |>
 Calculate the average temperature for each month across the whole data frame (using the data for all three states together).
 
 ```{r}
-list(
-  avg_price = mean(groceries$price)
-)
+max_temps
+apply(max_temps[,3:14], 2, mean)
 
 ```
 
@@ -265,6 +264,9 @@ Create three new data frames by slicing the data by state.
 No need to print any output here.
 
 ```{r}
+state_colorado <- max_temps[max_temps$state == "CO",]
+state_ohio <- max_temps[max_temps$state == "OH",]
+state_virginia <- max_temps[max_temps$state == "VA",]
 
 ```
 
@@ -286,7 +288,17 @@ Example (this is NOT the answer just an example of what goes in the {}):
 Note: This code should still run successfully even if the numbers were to change.
 
 ```{r}
+# calculate the median annual temperature for each year 
+median_temp_year <- apply(state_colorado[,3:14], 1, median)
 
+
+max_median_temp <- max(median_temp_year) # gets value of greatest median temperature
+min_median_temp <- min(median_temp_year) # gets value of minimum median annual temperature.
+max_median_year <- state_colorado[which.max(median_temp_year), 2] # gets year with the highest median temperature
+min_median_year <- state_colorado[which.min(median_temp_year), 2] # gets year with the lowest median temperature 
+
+
+paste0("The maximum median annual temperature of ", max_median_temp, " occurred in ", max_median_year, " and the minimum median annual temperature of ", min_median_temp, " occurred in ", min_median_year, ".")
 ```
 
 
