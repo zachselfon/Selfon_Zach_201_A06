@@ -91,6 +91,8 @@ player_info <- list(MJ = list(name = "Michael Jordan",
                               games_played = 216,
                               points = 5250,
                               assists = 582))
+
+print(player_info)
 ```
 
 
@@ -102,6 +104,13 @@ Extract the value `8162` (LeBron James points) in 2 different ways:
 - using names
 
 ```{r}
+lebron_points_indexing <- player_info[[2]][[4]] # gets the points using indexing 
+ 
+lebron_points_indexing # prints the points
+
+lebron_points_names <- player_info$LJ$points # gets the points using names 
+
+lebron_points_names # prints the points 
 
 ```
 
@@ -113,6 +122,16 @@ Add a new named element to the end of each player's list called `height`. The he
 Print the `player_info` list to prove you were successful.
 
 ```{r}
+# Vector of heights
+heights <- c(MJ = 78, LJ = 81, KB = 78, KA = 86, SO = 85)
+
+# Loop through each player and add the corresponding height using append
+for (player in names(player_info)) {
+  player_info[[player]] <- append(player_info[[player]], list(height = heights[[player]]))
+}
+
+# Print the updated player_info list to show the changes
+print(player_info)
 
 ```
 
@@ -132,6 +151,16 @@ Hint: initialize an empty list
 Note: this must still run correctly even if the values were to change or if another player were added to the list or if the player order changed.
 
 ```{r}
+ppg_list <- list() # initializes an empty list 
+
+# iterates through names of the players to get each players name 
+for(name in names(player_info)){
+  ppg <- player_info[[name]]$points / player_info[[name]]$games_played # calculates the points per game 
+  
+  ppg_list[[name]] <- ppg # adds the points per game to the new list with players initials as the name
+}
+
+print(ppg_list) # prints the new list 
 
 ```
 
@@ -143,7 +172,10 @@ Use the list created in Part c and an appropriate apply function to round each v
 Store the output as a vector and print the results.
 
 ```{r}
+# sapply rounds each value to two decimal places and stores it as a vector 
+rounded <- sapply(ppg_list, round, 2)
 
+print(rounded) # prints the results 
 ```
 
 
