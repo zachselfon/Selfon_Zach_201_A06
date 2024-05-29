@@ -92,7 +92,6 @@ player_info <- list(MJ = list(name = "Michael Jordan",
                               points = 5250,
                               assists = 582))
 
-print(player_info)
 ```
 
 
@@ -196,6 +195,34 @@ ie: 91 rounds to 90; 173 rounds to 200; 1450 rounds to 1000
 Hint: use `MARGIN = 1:2` to apply the function to each value instead of only a row/col.
 
 ```{r}
+# Create the random numbers as specified
+rand_num <- c(sample(10:100, 10), sample(100:999, 10), sample(1000:2000, 10))
+
+# Create the matrix of random numbers
+mat_rand <- matrix(sample(rand_num, 30), ncol = 5)
+
+# Custom rounding function
+round_custom <- function(x) {
+  if (x < 100) {
+    return(round(x / 10) * 10)  # Round to the nearest tens
+  } else if (x < 1000) {
+    return(round(x / 100) * 100)  # Round to the nearest hundreds
+  } else {
+    return(round(x / 1000) * 1000)  # Round to the nearest thousands
+  }
+}
+
+# Apply the custom rounding function to each element in the matrix
+mat_rounded <- matrix(apply(mat_rand, MARGIN = 1:2, FUN = round_custom), nrow = nrow(mat_rand), ncol = ncol(mat_rand))
+
+# Print the original and rounded matrices for comparison
+print("Original Matrix:")
+print(mat_rand)
+print("Rounded Matrix:")
+print(mat_rounded)
+
+
+
 
 ```
 
@@ -220,6 +247,9 @@ max_temps <- read_tsv("state_max_temps.tsv") |>
 Calculate the average temperature for each month across the whole data frame (using the data for all three states together).
 
 ```{r}
+list(
+  avg_price = mean(groceries$price)
+)
 
 ```
 
