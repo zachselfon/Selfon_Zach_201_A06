@@ -311,17 +311,20 @@ Example: The number 312 would return 6 (3 + 1 + 2)
 Run your function with 935068.
 
 ```{r}
-#recursive function returns the sum of the digits in a number 
-sum_digits <- function(x){
-  # Base case for if n is less than 10 
-  if(n<10){
-    return(n)
-  }else{
-    # recursive case and sums the last digit and the sum of the remaining digits 
-    return((n%%10) + sum_of_digits(n %% 10))
+# recursive function to sum the digits of a number
+sum_digits <- function(x) {
+  # Base case: if x is less than 10, return x
+  if (x < 10) {
+    return(x)
+  } else {
+    # Recursive case: sum the last digit and the sum of the remaining digits
+    return((x %% 10) + sum_digits(x %/% 10))
   }
 }
 
-sum_of_digits(935068)
+sum_digits(935068)
+```
+```{r}
+
 ```
 
